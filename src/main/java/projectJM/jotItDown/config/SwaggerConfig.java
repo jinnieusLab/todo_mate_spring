@@ -13,7 +13,7 @@ import org.springframework.context.annotation.Configuration;
 public class SwaggerConfig {
 
     @Bean
-    public OpenAPI umcAPI() {
+    public OpenAPI projectAPI() {
         Info info = new Info().title("API").description("Jot It Down API 명세").version("0.0.1");
 
 
