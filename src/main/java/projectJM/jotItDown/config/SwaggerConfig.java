@@ -14,7 +14,7 @@ public class SwaggerConfig {
 
     @Bean
     public OpenAPI projectAPI() {
-        Info info = new Info().title("API").description("Jot It Down API 명세").version("0.0.1");
+        Info info = new Info().title("API").description("Todo mate 클론 코딩 API 명세").version("0.0.1");
 
 
         // JWT 설정
