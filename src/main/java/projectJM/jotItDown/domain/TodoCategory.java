@@ -1,10 +1,8 @@
 package projectJM.jotItDown.domain;
 
 import jakarta.persistence.*;
-import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.NoArgsConstructor;
+import lombok.*;
+import projectJM.jotItDown.domain.common.BaseEntity;
 import projectJM.jotItDown.domain.enums.Color;
 
 import java.util.ArrayList;
@@ -14,7 +12,8 @@ import java.util.List;
 @AllArgsConstructor(access = AccessLevel.PROTECTED)
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Builder
-public class TodoCategory {
+@Getter
+public class TodoCategory extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "todo_category_id")

@@ -1,10 +1,8 @@
 package projectJM.jotItDown.domain;
 
 import jakarta.persistence.*;
-import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.NoArgsConstructor;
+import lombok.*;
+import projectJM.jotItDown.domain.common.BaseEntity;
 
 import java.sql.Time;
 import java.util.Date;
@@ -13,7 +11,8 @@ import java.util.Date;
 @AllArgsConstructor(access = AccessLevel.PROTECTED)
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Builder
-public class Todo {
+@Getter
+public class Todo extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

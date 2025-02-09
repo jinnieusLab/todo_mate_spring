@@ -1,17 +1,16 @@
 package projectJM.jotItDown.domain;
 
 import jakarta.persistence.*;
-import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.NoArgsConstructor;
+import lombok.*;
+import projectJM.jotItDown.domain.common.BaseEntity;
 import projectJM.jotItDown.domain.enums.DType;
 
 @Entity
 @AllArgsConstructor(access = AccessLevel.PROTECTED)
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Builder
-public class Alarm {
+@Getter
+public class Alarm extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "alarm_id")

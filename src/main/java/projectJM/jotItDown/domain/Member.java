@@ -1,10 +1,8 @@
 package projectJM.jotItDown.domain;
 
 import jakarta.persistence.*;
-import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.NoArgsConstructor;
+import lombok.*;
+import projectJM.jotItDown.domain.common.BaseEntity;
 import projectJM.jotItDown.domain.enums.SignUpType;
 import projectJM.jotItDown.domain.mapping.MemberChatroom;
 
@@ -15,7 +13,8 @@ import java.util.List;
 @AllArgsConstructor(access = AccessLevel.PROTECTED)
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Builder
-public class Member {
+@Getter
+public class Member extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

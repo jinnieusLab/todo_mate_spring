@@ -1,13 +1,11 @@
 package projectJM.jotItDown.domain.mapping;
 
 import jakarta.persistence.*;
-import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import projectJM.jotItDown.domain.Chatroom;
 import projectJM.jotItDown.domain.Member;
 import projectJM.jotItDown.domain.Message;
+import projectJM.jotItDown.domain.common.BaseEntity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,7 +14,8 @@ import java.util.List;
 @AllArgsConstructor(access = AccessLevel.PROTECTED)
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Builder
-public class MemberChatroom {
+@Getter
+public class MemberChatroom extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
