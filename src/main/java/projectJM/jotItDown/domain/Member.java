@@ -6,6 +6,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.NoArgsConstructor;
 import projectJM.jotItDown.domain.enums.SignUpType;
+import projectJM.jotItDown.domain.mapping.MemberChatroom;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -42,7 +43,7 @@ public class Member {
 
     private boolean is_deleted;
 
-    // 참조되는 PK
+    // 참조 되는 PK
     @OneToMany(mappedBy = "Member", cascade = CascadeType.ALL)
     private List<Follow> followList = new ArrayList<>();
 
@@ -54,4 +55,7 @@ public class Member {
 
     @OneToMany(mappedBy = "Member", cascade = CascadeType.ALL)
     private List<Todo> todoList = new ArrayList<>();
+
+    @OneToMany(mappedBy = "Member", cascade = CascadeType.ALL)
+    private List<MemberChatroom> memberChatroomList = new ArrayList<>();
 }
