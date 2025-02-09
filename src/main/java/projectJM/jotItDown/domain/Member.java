@@ -49,6 +49,9 @@ public class Member {
     @OneToMany(mappedBy = "Member", cascade = CascadeType.ALL)
     private List<Diary> diaryList = new ArrayList<>();
 
-   @OneToMany(mappedBy = "Member", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "Member", cascade = CascadeType.ALL)
     private List<Alarm> alarmList = new ArrayList<>();
+
+    @OneToMany(mappedBy = "Member", cascade = CascadeType.ALL)
+    private List<Todo> todoList = new ArrayList<>();
 }
