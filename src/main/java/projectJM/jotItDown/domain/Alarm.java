@@ -29,6 +29,6 @@ public class Alarm extends BaseEntity {
 
     // FK
     @ManyToOne(fetch = FetchType.LAZY)
-    @Column(name = "member_id")
+    @JoinColumn(name = "member_id")
     private Member member;
 }

@@ -32,6 +32,6 @@ public class MemberChatroom extends BaseEntity {
     private Chatroom chatroom;
 
     // 참조 되는 PK
-    @OneToMany(mappedBy = "MemberChatroom", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "memberChatroom", cascade = CascadeType.ALL)
     private List<Message> messageList = new ArrayList<>();
 }

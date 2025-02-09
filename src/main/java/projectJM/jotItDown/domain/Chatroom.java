@@ -26,6 +26,6 @@ public class Chatroom extends BaseEntity {
     private String chatroom_img_url;
 
     // 참조 되는 PK
-    @OneToMany(mappedBy = "Chatroom", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "chatroom", cascade = CascadeType.ALL)
     private List<MemberChatroom> memberChatroomList = new ArrayList<>();
 }

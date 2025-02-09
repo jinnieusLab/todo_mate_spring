@@ -26,6 +26,6 @@ public class TodoCategory extends BaseEntity {
     private Color color;
 
     // 참조 되는 PK
-    @OneToMany(mappedBy = "TodoCategory", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "todoCategory", cascade = CascadeType.ALL)
     List<Todo> todoList = new ArrayList<>();
 }

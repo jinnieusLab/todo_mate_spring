@@ -43,18 +43,21 @@ public class Member extends BaseEntity {
     private boolean is_deleted;
 
     // 참조 되는 PK
-    @OneToMany(mappedBy = "Member", cascade = CascadeType.ALL)
-    private List<Follow> followList = new ArrayList<>();
+    @OneToMany(mappedBy = "member_follower", cascade = CascadeType.ALL)
+    private List<Follow> followingList = new ArrayList<>();
 
-    @OneToMany(mappedBy = "Member", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "member_followed", cascade = CascadeType.ALL)
+    private List<Follow> followerList = new ArrayList<>();
+
+    @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
     private List<Diary> diaryList = new ArrayList<>();
 
-    @OneToMany(mappedBy = "Member", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
     private List<Alarm> alarmList = new ArrayList<>();
 
-    @OneToMany(mappedBy = "Member", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
     private List<Todo> todoList = new ArrayList<>();
 
-    @OneToMany(mappedBy = "Member", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
     private List<MemberChatroom> memberChatroomList = new ArrayList<>();
 }
