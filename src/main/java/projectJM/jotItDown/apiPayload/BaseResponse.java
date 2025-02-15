@@ -1,5 +1,6 @@
 package projectJM.jotItDown.apiPayload;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
@@ -19,6 +20,11 @@ public class BaseResponse<T> {
     private final String message;
     @JsonInclude(JsonInclude.Include.NON_NULL)
     private T result;
+
+    @JsonIgnore // 추가적으로 success 필드가 나오는 것을 방지
+    public boolean isSuccess() {
+        return isSuccess;
+    }
 
     public static <T> BaseResponse<T> onSuccess(T result) {
         return new BaseResponse<>(true, SuccessStatus._OK.getCode(), SuccessStatus._OK.getMessage(), result);
