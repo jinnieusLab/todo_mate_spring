@@ -7,6 +7,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import projectJM.jotItDown.apiPayload.code.BaseCode;
+import projectJM.jotItDown.apiPayload.code.status.ErrorStatus;
 import projectJM.jotItDown.apiPayload.code.status.SuccessStatus;
 
 @Getter
@@ -34,8 +35,8 @@ public class BaseResponse<T> {
         return new BaseResponse<>(true, code.getReasonHttpStatus().getCode(), code.getReasonHttpStatus().getMessage(), result);
     }
 
-    public static <T> BaseResponse<T> onFailure() {
-        return null;
+    public static <T> BaseResponse<T> onFailure(String code, String message, T data) {
+        return new BaseResponse<>(false, code, message, data);
     }
 
 }
