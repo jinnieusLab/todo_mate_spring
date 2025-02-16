@@ -7,7 +7,6 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import projectJM.jotItDown.apiPayload.code.BaseCode;
-import projectJM.jotItDown.apiPayload.code.status.ErrorStatus;
 import projectJM.jotItDown.apiPayload.code.status.SuccessStatus;
 
 @Getter
