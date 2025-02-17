@@ -19,16 +19,16 @@ public class MemberChatroom extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "member_chatroom_id")
+    @Column(name = "memberChatroomId")
     private Long id;
 
     // FK
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "member_id")
+    @JoinColumn(name = "memberId")
     private Member member;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "chatroom_id")
+    @JoinColumn(name = "chatroomId")
     private Chatroom chatroom;
 
     // 참조 되는 PK

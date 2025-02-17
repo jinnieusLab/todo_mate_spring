@@ -11,7 +11,7 @@ public class MemberConverter {
                 .id(joinDTO.getMemberId())
                 .email(joinDTO.getEmail())
                 .password(joinDTO.getPassword())
-                .signup_type(joinDTO.getSignUpType())
+                .signUpType(joinDTO.getSignUpType())
                 .build();
     }
 
@@ -19,7 +19,7 @@ public class MemberConverter {
         return MemberResponseDTO.JoinResultDTO.builder()
                 .memberId(member.getId())
                 .email(member.getEmail())
-                .createdAt(member.getCreated_at())
+                .createdAt(member.getCreatedAt())
                 .build();
     }
 }

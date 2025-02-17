@@ -16,7 +16,7 @@ public class Todo extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "todo_id")
+    @Column(name = "todoId")
     private Long id;
 
     @Column(nullable = false, columnDefinition = "TEXT")
@@ -31,11 +31,11 @@ public class Todo extends BaseEntity {
 
     // FK
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "member_id")
+    @JoinColumn(name = "memberId")
     private Member member;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "todo_category_id")
+    @JoinColumn(name = "todoCategoryId")
     private TodoCategory todoCategory;
 
 }

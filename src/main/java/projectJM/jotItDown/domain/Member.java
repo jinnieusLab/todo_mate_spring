@@ -18,7 +18,7 @@ public class Member extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "member_id")
+    @Column(name = "memberId")
     private Long id;
 
     @Column(length = 100)
@@ -43,10 +43,10 @@ public class Member extends BaseEntity {
     private boolean isDeleted;
 
     // 참조 되는 PK
-    @OneToMany(mappedBy = "member_follower", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "memberFollower", cascade = CascadeType.ALL)
     private List<Follow> followingList = new ArrayList<>();
 
-    @OneToMany(mappedBy = "member_followed", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "memberFollowed", cascade = CascadeType.ALL)
     private List<Follow> followerList = new ArrayList<>();
 
     @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)

@@ -16,7 +16,7 @@ import java.util.List;
 public class TodoCategory extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "todo_category_id")
+    @Column(name = "todoCategoryId")
     private Long id;
 
     @Column(nullable = false, length = 30)

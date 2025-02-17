@@ -16,7 +16,7 @@ import java.util.List;
 public class Chatroom extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "chatroom_id")
+    @Column(name = "chatroomId")
     private Long id;
 
     @Column(length = 50)

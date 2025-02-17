@@ -13,7 +13,7 @@ import projectJM.jotItDown.domain.enums.DType;
 public class Alarm extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "alarm_id")
+    @Column(name = "alarmId")
     private Long id;
 
     @Column(columnDefinition = "TEXT")
@@ -29,6 +29,6 @@ public class Alarm extends BaseEntity {
 
     // FK
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "member_id")
+    @JoinColumn(name = "memberId")
     private Member member;
 }

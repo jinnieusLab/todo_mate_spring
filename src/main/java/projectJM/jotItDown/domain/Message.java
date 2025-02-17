@@ -14,7 +14,7 @@ public class Message extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "message_id")
+    @Column(name = "messageId")
     private Long id;
 
     @Column(columnDefinition = "TEXT")
@@ -24,6 +24,6 @@ public class Message extends BaseEntity {
 
     // FK
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "member_chatroom_id")
+    @JoinColumn(name = "memberChatroomId")
     private MemberChatroom memberChatroom;
 }
