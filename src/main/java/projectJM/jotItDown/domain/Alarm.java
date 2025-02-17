@@ -22,7 +22,7 @@ public class Alarm extends BaseEntity {
     @Column(columnDefinition = "TEXT")
     private String content;
 
-    private boolean is_confirmed;
+    private boolean isConfirmed;
 
     @Enumerated(EnumType.STRING)
     private DType dType;

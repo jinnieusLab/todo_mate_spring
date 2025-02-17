@@ -20,7 +20,7 @@ public class Message extends BaseEntity {
     @Column(columnDefinition = "TEXT")
     private String content;
 
-    private int read_count;
+    private int readCount;
 
     // FK
     @ManyToOne(fetch = FetchType.LAZY)

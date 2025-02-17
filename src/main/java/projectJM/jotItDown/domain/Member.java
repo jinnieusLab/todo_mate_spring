@@ -28,19 +28,19 @@ public class Member extends BaseEntity {
     private String password;
 
     @Enumerated(EnumType.STRING)
-    private SignUpType signup_type;
+    private SignUpType signUpType;
 
     @Column(length = 20)
     private String nickname;
 
     @Column(columnDefinition = "TEXT")
-    private String profile_url;
+    private String profileUrl;
 
-    private String intro_message;
+    private String introMessage;
 
-    private String access_token;
+    private String accessToken;
 
-    private boolean is_deleted;
+    private boolean isDeleted;
 
     // 참조 되는 PK
     @OneToMany(mappedBy = "member_follower", cascade = CascadeType.ALL)

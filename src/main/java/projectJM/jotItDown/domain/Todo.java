@@ -24,7 +24,7 @@ public class Todo extends BaseEntity {
 
     private Date date;
 
-    private Time set_time;
+    private Time setTime;
 
     @Column(columnDefinition = "TEXT")
     private String location;

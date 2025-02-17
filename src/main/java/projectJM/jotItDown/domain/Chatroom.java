@@ -23,7 +23,7 @@ public class Chatroom extends BaseEntity {
     private String title;
 
     @Column(columnDefinition = "TEXT")
-    private String chatroom_img_url;
+    private String chatroomImgUrl;
 
     // 참조 되는 PK
     @OneToMany(mappedBy = "chatroom", cascade = CascadeType.ALL)
