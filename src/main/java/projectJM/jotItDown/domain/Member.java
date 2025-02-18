@@ -30,8 +30,9 @@ public class Member extends BaseEntity {
     @Enumerated(EnumType.STRING)
     private SignUpType signUpType;
 
-    @Column(length = 20)
-    private String nickname;
+    @Column(length = 20, nullable = false)
+    @Builder.Default
+    private String nickname = "User";
 
     @Column(columnDefinition = "TEXT")
     private String profileUrl;

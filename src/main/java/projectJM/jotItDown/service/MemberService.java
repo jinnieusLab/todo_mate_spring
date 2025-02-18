@@ -6,4 +6,6 @@ import projectJM.jotItDown.dto.request.MemberRequestDTO;
 public interface MemberService {
 
     Member createMember(MemberRequestDTO.JoinDTO joinDTO);
+
+    Member readMember(Long memberId);
 }

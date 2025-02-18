@@ -8,7 +8,6 @@ public class MemberRequestDTO {
 
     @Getter
     public static class JoinDTO {
-        private Long memberId;
         private String email;
         private String password;
         private SignUpType signUpType;

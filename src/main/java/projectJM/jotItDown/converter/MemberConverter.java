@@ -8,7 +8,6 @@ public class MemberConverter {
 
     public static Member toMember (MemberRequestDTO.JoinDTO joinDTO) {
         return Member.builder()
-                .id(joinDTO.getMemberId())
                 .email(joinDTO.getEmail())
                 .password(joinDTO.getPassword())
                 .signUpType(joinDTO.getSignUpType())
@@ -20,6 +19,15 @@ public class MemberConverter {
                 .memberId(member.getId())
                 .email(member.getEmail())
                 .createdAt(member.getCreatedAt())
+                .build();
+    }
+
+    public static MemberResponseDTO.memberPreviewDTO toMemberPreview (Member member) {
+        return MemberResponseDTO.memberPreviewDTO.builder()
+                .memberId(member.getId())
+                .email(member.getEmail())
+                .signUpType(member.getSignUpType())
+                .nickname(member.getNickname())
                 .build();
     }
 }
