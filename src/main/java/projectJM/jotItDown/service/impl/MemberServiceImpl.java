@@ -10,6 +10,8 @@ import projectJM.jotItDown.dto.request.MemberRequestDTO;
 import projectJM.jotItDown.repository.MemberRepository;
 import projectJM.jotItDown.service.MemberService;
 
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 public class MemberServiceImpl implements MemberService {
@@ -28,5 +30,10 @@ public class MemberServiceImpl implements MemberService {
             throw new MemberHandler(ErrorStatus._NOT_FOUND_MEMBER);
         });
         return member;
+    }
+
+    @Override
+    public List<Member> readMembers() {
+        return memberRepository.findAll();
     }
 }

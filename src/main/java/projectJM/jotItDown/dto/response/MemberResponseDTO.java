@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import projectJM.jotItDown.domain.enums.SignUpType;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 public class MemberResponseDTO {
 
@@ -29,5 +30,13 @@ public class MemberResponseDTO {
         private String email;
         private SignUpType signUpType;
         private String nickname;
+    }
+
+    @Getter
+    @AllArgsConstructor
+    @NoArgsConstructor
+    @Builder
+    public static class memberPreviewListDTO {
+        private List<memberPreviewDTO> memberPreviewDTOList;
     }
 }
