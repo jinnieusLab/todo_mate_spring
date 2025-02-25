@@ -36,4 +36,12 @@ public class MemberServiceImpl implements MemberService {
     public List<Member> readMembers() {
         return memberRepository.findAll();
     }
+
+    @Override
+    public void deleteMember(Long memberId) {
+        Member member = memberRepository.findById(memberId).orElseThrow(() -> {
+            throw new MemberHandler(ErrorStatus._NOT_FOUND_MEMBER);
+        });
+        memberRepository.delete(member);
+    }
 }

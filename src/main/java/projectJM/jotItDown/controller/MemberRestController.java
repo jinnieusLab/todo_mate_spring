@@ -38,4 +38,10 @@ public class MemberRestController {
         List<Member> memberList = memberService.readMembers();
         return BaseResponse.onSuccess(MemberConverter.toMemberPreviewList(memberList));
     }
+
+    // 특정 멤버 삭제
+    @DeleteMapping("/members/{memberId}")
+    public void deleteMember (@PathVariable Long memberId) {
+        memberService.deleteMember(memberId);
+    }
 }

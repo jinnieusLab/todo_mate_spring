@@ -12,4 +12,6 @@ public interface MemberService {
     Member readMember(Long memberId);
 
     List<Member> readMembers();
+
+    void deleteMember(Long memberId);
 }
