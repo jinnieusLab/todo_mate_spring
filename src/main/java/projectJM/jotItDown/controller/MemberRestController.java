@@ -39,6 +39,13 @@ public class MemberRestController {
         return BaseResponse.onSuccess(MemberConverter.toMemberPreviewList(memberList));
     }
 
+    // 멤버 업데이트
+    @PatchMapping("/members/{memberId}")
+    public BaseResponse<MemberResponseDTO.memberPreviewDTO> updateMember (@PathVariable Long memberId, @RequestBody MemberRequestDTO.MemberUpdateDTO memberUpdateDTO) {
+        Member member = memberService.updateMember(memberId, memberUpdateDTO);
+        return BaseResponse.onSuccess(MemberConverter.toMemberPreview(member));
+    }
+
     // 특정 멤버 삭제
     @DeleteMapping("/members/{memberId}")
     public void deleteMember (@PathVariable Long memberId) {

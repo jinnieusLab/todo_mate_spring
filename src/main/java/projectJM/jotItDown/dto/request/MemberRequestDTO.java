@@ -12,4 +12,11 @@ public class MemberRequestDTO {
         private String password;
         private SignUpType signUpType;
     }
+
+    @Getter
+    public static class MemberUpdateDTO {
+        private String nickname;
+        private String profileUrl;
+        private String introMessage;
+    }
 }

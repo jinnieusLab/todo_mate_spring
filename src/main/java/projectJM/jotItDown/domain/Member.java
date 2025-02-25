@@ -5,6 +5,7 @@ import lombok.*;
 import projectJM.jotItDown.domain.common.BaseEntity;
 import projectJM.jotItDown.domain.enums.SignUpType;
 import projectJM.jotItDown.domain.mapping.MemberChatroom;
+import projectJM.jotItDown.dto.request.MemberRequestDTO;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -61,4 +62,11 @@ public class Member extends BaseEntity {
 
     @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
     private List<MemberChatroom> memberChatroomList = new ArrayList<>();
+
+    //
+    public void update(MemberRequestDTO.MemberUpdateDTO memberUpdateDTO) {
+        nickname = memberUpdateDTO.getNickname();
+        profileUrl = memberUpdateDTO.getProfileUrl();
+        introMessage = memberUpdateDTO.getIntroMessage();
+    }
 }

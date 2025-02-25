@@ -30,6 +30,8 @@ public class MemberResponseDTO {
         private String email;
         private SignUpType signUpType;
         private String nickname;
+        private String profileUrl;
+        private String introMessage;
     }
 
     @Getter

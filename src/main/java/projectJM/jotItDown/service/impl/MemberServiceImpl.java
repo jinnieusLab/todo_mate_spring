@@ -44,4 +44,14 @@ public class MemberServiceImpl implements MemberService {
         });
         memberRepository.delete(member);
     }
+
+    @Override
+    public Member updateMember(Long memberId, MemberRequestDTO.MemberUpdateDTO memberUpdateDTO) {
+        Member member = memberRepository.findById(memberId).orElseThrow(() -> {
+            throw new MemberHandler(ErrorStatus._NOT_FOUND_MEMBER);
+        });
+
+        member.update(memberUpdateDTO);
+        return member;
+    }
 }
