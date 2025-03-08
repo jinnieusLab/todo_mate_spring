@@ -58,7 +58,7 @@ public class Member extends BaseEntity {
     private List<Alarm> alarmList = new ArrayList<>();
 
     @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
-    private List<Todo> todoList = new ArrayList<>();
+    private List<TodoCategory> todoCategoryList = new ArrayList<>();
 
     @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
     private List<MemberChatroom> memberChatroomList = new ArrayList<>();

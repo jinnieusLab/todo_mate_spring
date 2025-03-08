@@ -28,4 +28,9 @@ public class TodoCategory extends BaseEntity {
     // 참조 되는 PK
     @OneToMany(mappedBy = "todoCategory", cascade = CascadeType.ALL)
     List<Todo> todoList = new ArrayList<>();
+
+    // FK
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "memberId")
+    private Member member;
 }

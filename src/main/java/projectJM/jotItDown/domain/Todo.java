@@ -31,11 +31,6 @@ public class Todo extends BaseEntity {
 
     // FK
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "memberId")
-    private Member member;
-
-    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "todoCategoryId")
     private TodoCategory todoCategory;
-
 }
