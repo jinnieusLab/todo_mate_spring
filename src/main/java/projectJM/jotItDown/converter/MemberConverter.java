@@ -13,6 +13,7 @@ public class MemberConverter {
                 .email(joinDTO.getEmail())
                 .password(joinDTO.getPassword())
                 .signUpType(joinDTO.getSignUpType())
+                .role(joinDTO.getRole())
                 .build();
     }
 

@@ -1,6 +1,7 @@
 package projectJM.jotItDown.dto.request;
 
 import lombok.Getter;
+import projectJM.jotItDown.domain.enums.Role;
 import projectJM.jotItDown.domain.enums.SignUpType;
 
 
@@ -11,6 +12,7 @@ public class MemberRequestDTO {
         private String email;
         private String password;
         private SignUpType signUpType;
+        private Role role;
     }
 
     @Getter

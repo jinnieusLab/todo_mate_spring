@@ -28,7 +28,7 @@ public class Member extends BaseEntity {
     @Column(nullable = false)
     private String password;
 
-    private Enum Role;
+    private Enum role;
 
     @Enumerated(EnumType.STRING)
     private SignUpType signUpType;
