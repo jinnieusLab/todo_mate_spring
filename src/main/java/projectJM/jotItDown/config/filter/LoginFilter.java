@@ -26,34 +26,29 @@ public class LoginFilter extends UsernamePasswordAuthenticationFilter {
     public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response)
             throws AuthenticationException {
         LoginRequestDTO loginRequestDTO = readBody(request);
-        UsernamePasswordAuthenticationToken authRequest = UsernamePasswordAuthenticationToken.unauthenticated(loginRequestDTO.getEmail(),
+        UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken = UsernamePasswordAuthenticationToken.unauthenticated(loginRequestDTO.getEmail(),
                 loginRequestDTO.getPassword());
 
-        return authenticationManager.authenticate(authRequest);
+        return authenticationManager.authenticate(usernamePasswordAuthenticationToken);
     }
 
     public LoginRequestDTO readBody (HttpServletRequest request) {
         ObjectMapper om = new ObjectMapper();
-        LoginRequestDTO loginRequestDTO = null;
 
         try {
-            loginRequestDTO = om.readValue(request.getInputStream(), loginRequestDTO.getClass());
+            return om.readValue(request.getInputStream(), LoginRequestDTO.class);
         } catch (IOException e) {
             throw new AuthHandler(ErrorStatus._BAD_REQUEST);
         }
-
-        return loginRequestDTO;
     }
 
     @Override
     protected void successfulAuthentication(HttpServletRequest request, HttpServletResponse response, FilterChain chain, Authentication authResult) throws IOException, ServletException {
-        super.successfulAuthentication(request, response, chain, authResult);
         response.setStatus(200);
     }
 
     @Override
     protected void unsuccessfulAuthentication(HttpServletRequest request, HttpServletResponse response, AuthenticationException failed) throws IOException, ServletException {
-        super.unsuccessfulAuthentication(request, response, failed);
         response.setStatus(401);
     }
 }
