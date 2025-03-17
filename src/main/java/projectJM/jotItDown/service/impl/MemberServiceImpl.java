@@ -1,6 +1,7 @@
 package projectJM.jotItDown.service.impl;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import projectJM.jotItDown.apiPayload.code.status.ErrorStatus;
 import projectJM.jotItDown.apiPayload.exception.handler.MemberHandler;
@@ -17,10 +18,11 @@ import java.util.List;
 public class MemberServiceImpl implements MemberService {
 
     private final MemberRepository memberRepository;
+    private final PasswordEncoder passwordEncoder;
 
     @Override
     public Member createMember(MemberRequestDTO.JoinDTO joinDTO) {
-        Member member = MemberConverter.toMember(joinDTO);
+        Member member = MemberConverter.toMember(joinDTO, passwordEncoder);
         return memberRepository.save(member);
     }
 

@@ -46,6 +46,7 @@ public class SecurityConfig {
                         session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .addFilterAt(new LoginFilter(authenticationConfiguration.getAuthenticationManager()), UsernamePasswordAuthenticationFilter.class);
 
+        // 허용 url
         http.authorizeHttpRequests((request) -> request
                 .requestMatchers(HttpMethod.POST,"/members").permitAll()
                 .requestMatchers(HttpMethod.GET,"/members/{memberId}").hasRole(Role.USER.name())

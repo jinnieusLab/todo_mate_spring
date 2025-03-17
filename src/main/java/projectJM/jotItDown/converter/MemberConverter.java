@@ -1,5 +1,6 @@
 package projectJM.jotItDown.converter;
 
+import org.springframework.security.crypto.password.PasswordEncoder;
 import projectJM.jotItDown.domain.Member;
 import projectJM.jotItDown.dto.request.MemberRequestDTO;
 import projectJM.jotItDown.dto.response.MemberResponseDTO;
@@ -8,10 +9,10 @@ import java.util.List;
 
 public class MemberConverter {
 
-    public static Member toMember (MemberRequestDTO.JoinDTO joinDTO) {
+    public static Member toMember (MemberRequestDTO.JoinDTO joinDTO, PasswordEncoder passwordEncoder) {
         return Member.builder()
                 .email(joinDTO.getEmail())
-                .password(joinDTO.getPassword())
+                .password(passwordEncoder.encode(joinDTO.getPassword()))
                 .signUpType(joinDTO.getSignUpType())
                 .role(joinDTO.getRole())
                 .build();
