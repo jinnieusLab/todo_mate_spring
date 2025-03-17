@@ -3,6 +3,7 @@ package projectJM.jotItDown.domain;
 import jakarta.persistence.*;
 import lombok.*;
 import projectJM.jotItDown.domain.common.BaseEntity;
+import projectJM.jotItDown.domain.enums.Role;
 import projectJM.jotItDown.domain.enums.SignUpType;
 import projectJM.jotItDown.domain.mapping.MemberChatroom;
 import projectJM.jotItDown.dto.request.MemberRequestDTO;
@@ -28,7 +29,9 @@ public class Member extends BaseEntity {
     @Column(nullable = false)
     private String password;
 
-    private Enum role;
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    private Role role;
 
     @Enumerated(EnumType.STRING)
     private SignUpType signUpType;
