@@ -20,8 +20,15 @@ public class PrincipalDetails implements UserDetails {
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         List<String> roleList = new ArrayList<>();
-        roleList.add(member.getRole().name());
-        return roleList.stream().map(SimpleGrantedAuthority::new).collect(Collectors.toList());
+        roleList.add("ROLE_" + member.getRole().name());
+        Collection<? extends GrantedAuthority> authorities = roleList.stream()
+                .map(SimpleGrantedAuthority::new)
+                .collect(Collectors.toList());
+
+        // 🚨 디버깅: Spring Security가 어떤 권한을 인식하는지 확인
+        System.out.println("Authorities: " + authorities);
+
+        return authorities;
     }
 
     @Override

@@ -22,6 +22,7 @@ public class PrincipalDetailsService implements UserDetailsService {
             throw new MemberHandler(ErrorStatus._NOT_FOUND_MEMBER);
         });
 
+        System.out.println("✅ [UserDetailsService] 사용자 찾음: " + member);
         return new PrincipalDetails(member);
     }
 }
