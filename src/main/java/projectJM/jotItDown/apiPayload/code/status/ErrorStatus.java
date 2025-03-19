@@ -15,7 +15,11 @@ public enum ErrorStatus implements BaseErrorCode {
     _FORBIDDEN(HttpStatus.FORBIDDEN, "COMMON403", "금지된 요청입니다"),
 
     // Member
-    _NOT_FOUND_MEMBER(HttpStatus.NOT_FOUND, "MEMBER400", "해당 멤버를 찾을 수 없습니다.");
+    _NOT_FOUND_MEMBER(HttpStatus.NOT_FOUND, "MEMBER400", "해당 멤버를 찾을 수 없습니다."),
+
+    // Auth
+    _AUTH_EXPIRE_TOKEN(HttpStatus.UNAUTHORIZED, "AUTH401_1", "토큰이 만료되었습니다."),
+    _AUTH_INVALID_TOKEN(HttpStatus.UNAUTHORIZED, "AUTH401_2", "토큰이 유효하지 않습니다");
 
     private final HttpStatus httpStatus;
     private final String code;
