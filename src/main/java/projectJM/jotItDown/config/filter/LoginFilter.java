@@ -6,22 +6,32 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import projectJM.jotItDown.apiPayload.BaseResponse;
 import projectJM.jotItDown.apiPayload.code.status.ErrorStatus;
 import projectJM.jotItDown.apiPayload.exception.handler.AuthHandler;
+import projectJM.jotItDown.config.JWT.JWTUtil;
+import projectJM.jotItDown.config.PrincipalDetails;
 import projectJM.jotItDown.dto.request.LoginRequestDTO;
 
 import java.io.IOException;
+import java.util.Collection;
+import java.util.Iterator;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 public class LoginFilter extends UsernamePasswordAuthenticationFilter {
 
     private final AuthenticationManager authenticationManager;
+    private final JWTUtil jwtUtil;
 
     @Override
     public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response)
@@ -47,7 +57,31 @@ public class LoginFilter extends UsernamePasswordAuthenticationFilter {
     @Override
     protected void successfulAuthentication(HttpServletRequest request, HttpServletResponse response, FilterChain chain, Authentication authResult) throws IOException, ServletException {
         SecurityContextHolder.getContext().setAuthentication(authResult);
-        response.setStatus(200);
+        PrincipalDetails principalDetails = (PrincipalDetails) authResult.getPrincipal();
+        String email = principalDetails.getUsername();
+
+        Collection<? extends GrantedAuthority> authorities = authResult.getAuthorities();
+        Iterator<? extends GrantedAuthority> iterator = authorities.iterator();
+        GrantedAuthority grantedAuthority = iterator.next();
+
+        String role = grantedAuthority.getAuthority();
+
+        // 토큰 만들기
+        String token = jwtUtil.createAccessToken(email, role);
+
+        // JWT (Header, Payload, Signature)
+
+        jwtUtil.validateToken(token);
+        jwtUtil.getEmail(token);
+
+        // 성공 응답
+        response.addHeader("Authorization", "Bearer " + token);
+        response.setContentType("application/json; chartset=UTF-8");
+        response.setStatus(HttpStatus.OK.value());
+
+        BaseResponse<Object> successResponse = BaseResponse.onSuccess(null);
+        ObjectMapper mapper = new ObjectMapper();
+        mapper.writeValue(response.getOutputStream(), successResponse);
     }
 
     @Override
