@@ -24,8 +24,6 @@ import projectJM.jotItDown.dto.request.LoginRequestDTO;
 import java.io.IOException;
 import java.util.Collection;
 import java.util.Iterator;
-import java.util.List;
-import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 public class LoginFilter extends UsernamePasswordAuthenticationFilter {
@@ -56,27 +54,21 @@ public class LoginFilter extends UsernamePasswordAuthenticationFilter {
 
     @Override
     protected void successfulAuthentication(HttpServletRequest request, HttpServletResponse response, FilterChain chain, Authentication authResult) throws IOException, ServletException {
-        SecurityContextHolder.getContext().setAuthentication(authResult);
         PrincipalDetails principalDetails = (PrincipalDetails) authResult.getPrincipal();
         String email = principalDetails.getUsername();
 
+        // authority
         Collection<? extends GrantedAuthority> authorities = authResult.getAuthorities();
         Iterator<? extends GrantedAuthority> iterator = authorities.iterator();
         GrantedAuthority grantedAuthority = iterator.next();
-
         String role = grantedAuthority.getAuthority();
 
         // 토큰 만들기
         String token = jwtUtil.createAccessToken(email, role);
-
-        // JWT (Header, Payload, Signature)
-
-        jwtUtil.validateToken(token);
-        jwtUtil.getEmail(token);
+        System.out.println("🚀 생성된 토큰: " + token);
 
         // 성공 응답
-        response.addHeader("Authorization", "Bearer " + token);
-        response.setContentType("application/json; chartset=UTF-8");
+        response.setHeader("Authorization", "Bearer " + token);
         response.setStatus(HttpStatus.OK.value());
 
         BaseResponse<Object> successResponse = BaseResponse.onSuccess(null);
@@ -86,6 +78,13 @@ public class LoginFilter extends UsernamePasswordAuthenticationFilter {
 
     @Override
     protected void unsuccessfulAuthentication(HttpServletRequest request, HttpServletResponse response, AuthenticationException failed) throws IOException, ServletException {
-        response.setStatus(401);
+        response.setContentType("application/json; chartset=UTF-8");
+        response.setStatus(HttpStatus.UNAUTHORIZED.value());
+
+        ErrorStatus unauthorized = ErrorStatus._AUTHENTICATION_FAILED;
+
+        BaseResponse<Object> errorResponse = BaseResponse.onFailure(unauthorized.getCode(), unauthorized.getMessage(), null);
+        ObjectMapper mapper = new ObjectMapper();
+        mapper.writeValue(response.getOutputStream(), errorResponse);
     }
 }

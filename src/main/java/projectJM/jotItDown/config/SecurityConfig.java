@@ -14,6 +14,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import projectJM.jotItDown.config.JWT.JWTUtil;
 import projectJM.jotItDown.config.filter.LoginFilter;
 import projectJM.jotItDown.domain.enums.Role;
 
@@ -22,6 +23,7 @@ import projectJM.jotItDown.domain.enums.Role;
 @RequiredArgsConstructor
 public class SecurityConfig {
     private final AuthenticationConfiguration authenticationConfiguration;
+    private final JWTUtil jwtUtil;
 
     private final String[] allowUrl = {
             "/swagger-ui/**",
@@ -50,7 +52,7 @@ public class SecurityConfig {
                 .formLogin(AbstractHttpConfigurer::disable)
                 .sessionManagement((session) ->
                         session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-                .addFilterBefore(new LoginFilter(authenticationManager(authenticationConfiguration)), UsernamePasswordAuthenticationFilter.class);
+                .addFilterBefore(new LoginFilter(authenticationManager(authenticationConfiguration), jwtUtil), UsernamePasswordAuthenticationFilter.class);
 
         // 허용 url
         http.authorizeHttpRequests((request) -> request
@@ -59,6 +61,13 @@ public class SecurityConfig {
                 .requestMatchers(HttpMethod.GET,"/members").permitAll()
                 .requestMatchers(allowUrl).permitAll()
                 .anyRequest().authenticated());
+
+        // HttpServletResponse (JWT 관련) 헤더 설정
+        http.headers( headers -> headers
+                .frameOptions(frameOptions -> frameOptions.sameOrigin())
+                .addHeaderWriter((request, response) -> {
+                    response.setHeader("Access-Control-Expose-Headers", "Authorization");
+                }));
 
         return http.build();
     }

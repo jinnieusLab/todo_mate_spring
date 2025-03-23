@@ -41,7 +41,7 @@ public class JWTUtil {
 
         // 토큰 이용 시간 (현재, 만료 시간)
         ZonedDateTime now = ZonedDateTime.now();
-        ZonedDateTime tokenValidity = now.plusSeconds(validityMilliseconds);
+        ZonedDateTime tokenValidity = now.plusSeconds(validityMilliseconds / 1000);
 
         return Jwts.builder()
                 .setClaims(claims)
