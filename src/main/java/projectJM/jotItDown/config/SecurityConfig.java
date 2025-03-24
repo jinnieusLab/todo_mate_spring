@@ -14,6 +14,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import projectJM.jotItDown.config.JWT.JWTAccessDeniedHandler;
 import projectJM.jotItDown.config.JWT.JWTExceptionFilter;
 import projectJM.jotItDown.config.JWT.JWTFilter;
 import projectJM.jotItDown.config.JWT.JWTUtil;
@@ -27,6 +28,7 @@ public class SecurityConfig {
     private final AuthenticationConfiguration authenticationConfiguration;
     private final JWTUtil jwtUtil;
     private final PrincipalDetailsService principalDetailsService;
+    private final JWTAccessDeniedHandler jwtAccessDeniedHandler;
 
     private final String[] allowUrl = {
             "/swagger-ui/**",
@@ -73,6 +75,8 @@ public class SecurityConfig {
                 .addHeaderWriter((request, response) -> {
                     response.setHeader("Access-Control-Expose-Headers", "Authorization");
                 }));
+
+        http.exceptionHandling(configurer -> configurer.accessDeniedHandler(jwtAccessDeniedHandler));
 
         return http.build();
     }
