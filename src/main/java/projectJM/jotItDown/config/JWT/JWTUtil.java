@@ -59,6 +59,8 @@ public class JWTUtil {
         return getClaims(token).getBody().get("email", String.class);
     }
 
+    // JWT 검증 (JWTFilter에서 사용)
+
     public boolean validateToken(String token) {
         try {
             Jws<Claims> claims = getClaims(token);

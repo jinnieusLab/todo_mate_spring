@@ -14,6 +14,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import projectJM.jotItDown.config.JWT.JWTFilter;
 import projectJM.jotItDown.config.JWT.JWTUtil;
 import projectJM.jotItDown.config.filter.LoginFilter;
 import projectJM.jotItDown.domain.enums.Role;
@@ -24,6 +25,7 @@ import projectJM.jotItDown.domain.enums.Role;
 public class SecurityConfig {
     private final AuthenticationConfiguration authenticationConfiguration;
     private final JWTUtil jwtUtil;
+    private final PrincipalDetailsService principalDetailsService;
 
     private final String[] allowUrl = {
             "/swagger-ui/**",
@@ -52,6 +54,7 @@ public class SecurityConfig {
                 .formLogin(AbstractHttpConfigurer::disable)
                 .sessionManagement((session) ->
                         session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+                .addFilterBefore(new JWTFilter(jwtUtil, principalDetailsService), UsernamePasswordAuthenticationFilter.class)
                 .addFilterBefore(new LoginFilter(authenticationManager(authenticationConfiguration), jwtUtil), UsernamePasswordAuthenticationFilter.class);
 
         // 허용 url
