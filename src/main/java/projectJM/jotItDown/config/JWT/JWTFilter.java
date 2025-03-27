@@ -1,5 +1,6 @@
 package projectJM.jotItDown.config.JWT;
 
+import io.jsonwebtoken.ExpiredJwtException;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -21,6 +22,7 @@ public class JWTFilter extends OncePerRequestFilter {
     private final JWTUtil jwtUtil;
     private final PrincipalDetailsService principalDetailsService;
 
+    // JWT 검증
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
         // JWT header
@@ -29,19 +31,28 @@ public class JWTFilter extends OncePerRequestFilter {
         if (authHeader != null && authHeader.startsWith("Bearer")) {
             String token = authHeader.substring(7);
 
-            if (jwtUtil.validateToken(token)) {
-                String email = jwtUtil.getEmail(token);
-                UserDetails userDetails = principalDetailsService.loadUserByUsername(email);
+            try {
+                if (jwtUtil.validateToken(token)) {
+                    String email = jwtUtil.getEmail(token);
+                    UserDetails userDetails = principalDetailsService.loadUserByUsername(email);
 
-                if (userDetails != null) {
-                    UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken = new UsernamePasswordAuthenticationToken(userDetails, "", userDetails.getAuthorities());
-                    SecurityContextHolder.getContext().setAuthentication(usernamePasswordAuthenticationToken);
-                } else {
-                    throw new AuthHandler(ErrorStatus._NOT_FOUND_MEMBER);
+                    if (userDetails != null) {
+                        UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken = new UsernamePasswordAuthenticationToken(userDetails, "", userDetails.getAuthorities());
+                        SecurityContextHolder.getContext().setAuthentication(usernamePasswordAuthenticationToken);
+                    } else {
+                        throw new AuthHandler(ErrorStatus._NOT_FOUND_MEMBER);
+                    }
                 }
+            } catch (ExpiredJwtException e) {
+                handleExpiredAccessToken(token);
             }
         }
-
         filterChain.doFilter(request, response);
+    }
+
+    // Access Token 만료 시
+    private void handleExpiredAccessToken (String Token) {
+        // Refresh Token 검증
+
     }
 }

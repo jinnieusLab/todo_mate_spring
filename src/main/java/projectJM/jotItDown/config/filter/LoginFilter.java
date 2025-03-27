@@ -3,6 +3,7 @@ package projectJM.jotItDown.config.filter;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
+import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
@@ -18,6 +19,7 @@ import projectJM.jotItDown.apiPayload.BaseResponse;
 import projectJM.jotItDown.apiPayload.code.status.ErrorStatus;
 import projectJM.jotItDown.apiPayload.exception.handler.AuthHandler;
 import projectJM.jotItDown.config.JWT.JWTUtil;
+import projectJM.jotItDown.config.JWT.refreshToken.JWTRefreshTokenRepository;
 import projectJM.jotItDown.config.PrincipalDetails;
 import projectJM.jotItDown.dto.request.LoginRequestDTO;
 
@@ -30,6 +32,7 @@ public class LoginFilter extends UsernamePasswordAuthenticationFilter {
 
     private final AuthenticationManager authenticationManager;
     private final JWTUtil jwtUtil;
+    private final JWTRefreshTokenRepository jwtRefreshTokenRepository;
 
     @Override
     public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response)
@@ -64,11 +67,21 @@ public class LoginFilter extends UsernamePasswordAuthenticationFilter {
         String role = grantedAuthority.getAuthority();
 
         // 토큰 만들기
-        String token = jwtUtil.createAccessToken(email, role);
-        System.out.println("🚀 생성된 토큰: " + token);
+        String accessToken = jwtUtil.createAccessToken(email, role);
+        String refreshToken = jwtUtil.createRefreshToken(email,role);
+        System.out.println("🚀 생성된 토큰: " + accessToken);
 
-        // 성공 응답
-        response.setHeader("Authorization", "Bearer " + token);
+        // Refresh Token DB, Cookie에 저장하여 보관
+        jwtRefreshTokenRepository.save(refreshToken);
+        Cookie refreshTokenCookie = new Cookie("Refresh-Token", refreshToken);
+        refreshTokenCookie.setHttpOnly(true);
+        refreshTokenCookie.setPath("/");
+        refreshTokenCookie.setMaxAge((int)(jwtUtil.getRefreshTokenValidityMilliseconds() / 1000));
+        response.addCookie(refreshTokenCookie);
+
+
+        // Access Token 발급 성공 응답
+        response.setHeader("Authorization", "Bearer " + accessToken);
         response.setStatus(HttpStatus.OK.value());
 
         BaseResponse<Object> successResponse = BaseResponse.onSuccess(null);
