@@ -8,7 +8,6 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import projectJM.jotItDown.apiPayload.code.status.ErrorStatus;
 import projectJM.jotItDown.apiPayload.exception.handler.AuthHandler;
-import projectJM.jotItDown.config.JWT.refreshToken.JWTRefreshTokenRepository;
 
 import javax.crypto.SecretKey;
 import java.nio.charset.StandardCharsets;
@@ -27,7 +26,7 @@ public class JWTUtil {
     // JWTUtil 생성자
     public JWTUtil(@Value("${spring.jwt.secret}") final String secretKey,
                    @Value("${spring.jwt.access-token-time}") final long accessTokenValidityMilliseconds,
-                   @Value("%{spring.jwt.refresh-token-time}") final long refreshTokenValidityMilliseconds) {
+                   @Value("${spring.jwt.refresh-token-time}") final long refreshTokenValidityMilliseconds) {
         this.secretKey = Keys.hmacShaKeyFor(secretKey.getBytes(StandardCharsets.UTF_8));
         this.accessTokenValidityMilliseconds = accessTokenValidityMilliseconds;
         this.refreshTokenValidityMilliseconds = refreshTokenValidityMilliseconds;
@@ -74,7 +73,6 @@ public class JWTUtil {
     }
 
     // JWT 검증 (JWTFilter에서 사용)
-
     public boolean validateToken(String token) {
         try {
             Jws<Claims> claims = getClaims(token);

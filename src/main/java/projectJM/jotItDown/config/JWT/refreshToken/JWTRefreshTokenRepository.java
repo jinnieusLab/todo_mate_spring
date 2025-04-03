@@ -4,5 +4,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface JWTRefreshTokenRepository extends JpaRepository<String, Long> {
+public interface JWTRefreshTokenRepository extends JpaRepository<JWTRefreshToken, Long> {
+
+    boolean existsByToken(String refreshToken);
 }

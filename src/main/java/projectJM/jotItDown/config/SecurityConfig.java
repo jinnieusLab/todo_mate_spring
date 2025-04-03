@@ -15,6 +15,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import projectJM.jotItDown.config.JWT.*;
+import projectJM.jotItDown.config.JWT.refreshToken.JWTRefreshTokenRepository;
 import projectJM.jotItDown.config.filter.LoginFilter;
 import projectJM.jotItDown.domain.enums.Role;
 
@@ -27,6 +28,7 @@ public class SecurityConfig {
     private final PrincipalDetailsService principalDetailsService;
     private final JWTAccessDeniedHandler jwtAccessDeniedHandler;
     private final JWTAuthenticationEntryPoint jwtAuthenticationEntryPoint;
+    private final JWTRefreshTokenRepository jwtRefreshTokenRepository;
 
     private final String[] allowUrl = {
             "/swagger-ui/**",
@@ -55,9 +57,9 @@ public class SecurityConfig {
                 .formLogin(AbstractHttpConfigurer::disable)
                 .sessionManagement((session) ->
                         session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-                .addFilterBefore(new JWTFilter(jwtUtil, principalDetailsService), UsernamePasswordAuthenticationFilter.class)
+                .addFilterBefore(new JWTFilter(jwtUtil, principalDetailsService, jwtRefreshTokenRepository), UsernamePasswordAuthenticationFilter.class)
                 .addFilterBefore(new JWTExceptionFilter(), JWTFilter.class)
-                .addFilterBefore(new LoginFilter(authenticationManager(authenticationConfiguration), jwtUtil), UsernamePasswordAuthenticationFilter.class);
+                .addFilterBefore(new LoginFilter(authenticationManager(authenticationConfiguration), jwtUtil, jwtRefreshTokenRepository), UsernamePasswordAuthenticationFilter.class);
 
         // 허용 url
         http.authorizeHttpRequests((request) -> request

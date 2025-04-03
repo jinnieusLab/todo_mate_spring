@@ -47,6 +47,8 @@ public class Member extends BaseEntity {
 
     private String accessToken;
 
+    private String refreshToken;
+
     private boolean isDeleted;
 
     // 참조 되는 PK

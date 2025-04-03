@@ -19,6 +19,7 @@ import projectJM.jotItDown.apiPayload.BaseResponse;
 import projectJM.jotItDown.apiPayload.code.status.ErrorStatus;
 import projectJM.jotItDown.apiPayload.exception.handler.AuthHandler;
 import projectJM.jotItDown.config.JWT.JWTUtil;
+import projectJM.jotItDown.config.JWT.refreshToken.JWTRefreshToken;
 import projectJM.jotItDown.config.JWT.refreshToken.JWTRefreshTokenRepository;
 import projectJM.jotItDown.config.PrincipalDetails;
 import projectJM.jotItDown.dto.request.LoginRequestDTO;
@@ -72,13 +73,14 @@ public class LoginFilter extends UsernamePasswordAuthenticationFilter {
         System.out.println("🚀 생성된 토큰: " + accessToken);
 
         // Refresh Token DB, Cookie에 저장하여 보관
-        jwtRefreshTokenRepository.save(refreshToken);
+        JWTRefreshToken jwtRefreshToken = new JWTRefreshToken(refreshToken, email);
+        jwtRefreshTokenRepository.save(jwtRefreshToken);
+
         Cookie refreshTokenCookie = new Cookie("Refresh-Token", refreshToken);
         refreshTokenCookie.setHttpOnly(true);
         refreshTokenCookie.setPath("/");
         refreshTokenCookie.setMaxAge((int)(jwtUtil.getRefreshTokenValidityMilliseconds() / 1000));
         response.addCookie(refreshTokenCookie);
-
 
         // Access Token 발급 성공 응답
         response.setHeader("Authorization", "Bearer " + accessToken);
