@@ -25,7 +25,7 @@ public class JWTRefreshToken {
     private String email;
 
     public JWTRefreshToken (String token, String email) {
-        token = this.token;
-        email = this.email;
+        this.token = token;
+        this.email = email;
     }
 }

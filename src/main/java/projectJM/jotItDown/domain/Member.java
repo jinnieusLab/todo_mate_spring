@@ -45,10 +45,6 @@ public class Member extends BaseEntity {
 
     private String introMessage;
 
-    private String accessToken;
-
-    private String refreshToken;
-
     private boolean isDeleted;
 
     // 참조 되는 PK
@@ -70,7 +66,6 @@ public class Member extends BaseEntity {
     @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
     private List<MemberChatroom> memberChatroomList = new ArrayList<>();
 
-    //
     public void update(MemberRequestDTO.MemberUpdateDTO memberUpdateDTO) {
         nickname = memberUpdateDTO.getNickname();
         profileUrl = memberUpdateDTO.getProfileUrl();
