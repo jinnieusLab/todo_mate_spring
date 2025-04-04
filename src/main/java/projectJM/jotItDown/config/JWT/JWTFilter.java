@@ -1,7 +1,7 @@
 package projectJM.jotItDown.config.JWT;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import io.jsonwebtoken.ExpiredJwtException;
+import io.jsonwebtoken.JwtException;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.Cookie;
@@ -13,7 +13,6 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.filter.OncePerRequestFilter;
-import projectJM.jotItDown.apiPayload.BaseResponse;
 import projectJM.jotItDown.apiPayload.code.status.ErrorStatus;
 import projectJM.jotItDown.apiPayload.exception.handler.AuthHandler;
 import projectJM.jotItDown.config.JWT.refreshToken.JWTRefreshTokenRepository;
@@ -32,6 +31,7 @@ public class JWTFilter extends OncePerRequestFilter {
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
         // JWT header
+        System.out.println("🔍 JWTFilter 실행됨!");
         String authHeader = request.getHeader("Authorization");
 
         if (authHeader != null && authHeader.startsWith("Bearer")) {
@@ -50,7 +50,13 @@ public class JWTFilter extends OncePerRequestFilter {
                     }
                 }
             } catch (ExpiredJwtException e) {
+                System.out.println("⏳ Access Token 만료됨!");
                 handleExpiredAccessToken(request, response);
+            } catch (JwtException e) {
+                System.out.println("🚨 JWT 검증 실패: " + e.getMessage());
+                response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+                response.getWriter().write("Unauthorized");
+                return;
             }
         }
         filterChain.doFilter(request, response);
@@ -83,14 +89,19 @@ public class JWTFilter extends OncePerRequestFilter {
     // Cookie에서 Refresh Token 가져오기
     private String getRefreshTokenFromCookie (HttpServletRequest request) {
 
-        if (request.getCookies() == null)
+        if (request.getCookies() == null) {
+            System.out.println("🚨 쿠키가 없음!");
             return null;
-
-        for (Cookie cookie : request.getCookies()) {
-            if ("Refresh-Token".equals(cookie.getName()))
-                return cookie.getValue();
         }
 
+        for (Cookie cookie : request.getCookies()) {
+            if ("Refresh-Token".equals(cookie.getName())) {
+                System.out.println("🔍 쿠키 이름: " + cookie.getName() + " | 값: " + cookie.getValue());
+                return cookie.getValue();
+            }
+        }
+
+        System.out.println("🚨 쿠키가 없음!");
         return null;
     }
 }

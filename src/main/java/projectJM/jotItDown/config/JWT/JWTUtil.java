@@ -79,8 +79,7 @@ public class JWTUtil {
             Date now = new Date();
             Date expiredDate = claims.getBody().getExpiration();
             return expiredDate.after(now);
-        } catch (ExpiredJwtException e) {
-            throw new AuthHandler(ErrorStatus._AUTH_EXPIRE_TOKEN);
+            // 만료 토큰은 JWTFilter에서 처리
         } catch (SignatureException | SecurityException | IllegalStateException | MalformedJwtException | UnsupportedJwtException e) {
             throw new AuthHandler(ErrorStatus._AUTH_INVALID_TOKEN);
         }

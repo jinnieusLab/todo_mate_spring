@@ -71,6 +71,10 @@ public class LoginFilter extends UsernamePasswordAuthenticationFilter {
         String refreshToken = jwtUtil.createRefreshToken(email,role);
         System.out.println("🚀 생성된 토큰: " + accessToken);
 
+        // 기존 Refresh Token 삭제
+        if (jwtRefreshTokenRepository.existsByEmail(email))
+            jwtRefreshTokenRepository.deleteByEmail(email);
+
         // Refresh Token DB, Cookie에 저장하여 보관
         JWTRefreshToken jwtRefreshToken = new JWTRefreshToken(refreshToken, email);
         jwtRefreshTokenRepository.save(jwtRefreshToken);
