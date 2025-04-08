@@ -1,4 +1,4 @@
-package projectJM.jotItDown.config.JWT;
+package projectJM.jotItDown.security.JWT.auth;
 
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
@@ -8,7 +8,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import projectJM.jotItDown.apiPayload.code.status.ErrorStatus;
 import projectJM.jotItDown.apiPayload.exception.handler.AuthHandler;
-import projectJM.jotItDown.config.JWT.refreshToken.JWTRefreshTokenRepository;
+import projectJM.jotItDown.security.JWT.JWTUtil;
+import projectJM.jotItDown.security.JWT.refreshToken.JWTRefreshTokenRepository;
 
 @Service
 @RequiredArgsConstructor

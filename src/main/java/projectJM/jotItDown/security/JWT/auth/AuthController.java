@@ -1,4 +1,4 @@
-package projectJM.jotItDown.config.JWT;
+package projectJM.jotItDown.security.JWT.auth;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;

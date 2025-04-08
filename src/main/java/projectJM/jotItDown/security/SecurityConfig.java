@@ -1,4 +1,4 @@
-package projectJM.jotItDown.config;
+package projectJM.jotItDown.security;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
@@ -14,9 +14,11 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-import projectJM.jotItDown.config.JWT.*;
-import projectJM.jotItDown.config.JWT.refreshToken.JWTRefreshTokenRepository;
-import projectJM.jotItDown.config.filter.LoginFilter;
+import projectJM.jotItDown.security.JWT.*;
+import projectJM.jotItDown.security.JWT.handler.JWTAccessDeniedHandler;
+import projectJM.jotItDown.security.JWT.handler.JWTAuthenticationEntryPoint;
+import projectJM.jotItDown.security.JWT.refreshToken.JWTRefreshTokenRepository;
+import projectJM.jotItDown.security.filter.LoginFilter;
 import projectJM.jotItDown.domain.enums.Role;
 
 @Configuration

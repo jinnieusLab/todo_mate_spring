@@ -1,4 +1,4 @@
-package projectJM.jotItDown.config.JWT;
+package projectJM.jotItDown.security.JWT;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.servlet.FilterChain;

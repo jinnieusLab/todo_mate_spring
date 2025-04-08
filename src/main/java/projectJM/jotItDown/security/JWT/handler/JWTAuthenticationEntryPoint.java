@@ -1,4 +1,4 @@
-package projectJM.jotItDown.config.JWT;
+package projectJM.jotItDown.security.JWT.handler;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.servlet.ServletException;

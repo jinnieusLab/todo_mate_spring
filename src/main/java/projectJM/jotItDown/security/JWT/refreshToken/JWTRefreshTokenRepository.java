@@ -1,4 +1,4 @@
-package projectJM.jotItDown.config.JWT.refreshToken;
+package projectJM.jotItDown.security.JWT.refreshToken;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;

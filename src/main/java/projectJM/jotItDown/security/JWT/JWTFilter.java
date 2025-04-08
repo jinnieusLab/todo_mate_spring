@@ -1,4 +1,4 @@
-package projectJM.jotItDown.config.JWT;
+package projectJM.jotItDown.security.JWT;
 
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.JwtException;
@@ -13,7 +13,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.filter.OncePerRequestFilter;
 import projectJM.jotItDown.apiPayload.code.status.ErrorStatus;
 import projectJM.jotItDown.apiPayload.exception.handler.AuthHandler;
-import projectJM.jotItDown.config.PrincipalDetailsService;
+import projectJM.jotItDown.security.PrincipalDetailsService;
 
 import java.io.IOException;
 

@@ -1,4 +1,4 @@
-package projectJM.jotItDown.config.filter;
+package projectJM.jotItDown.security.filter;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.servlet.FilterChain;
@@ -17,10 +17,10 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 import projectJM.jotItDown.apiPayload.BaseResponse;
 import projectJM.jotItDown.apiPayload.code.status.ErrorStatus;
 import projectJM.jotItDown.apiPayload.exception.handler.AuthHandler;
-import projectJM.jotItDown.config.JWT.JWTUtil;
-import projectJM.jotItDown.config.JWT.refreshToken.JWTRefreshToken;
-import projectJM.jotItDown.config.JWT.refreshToken.JWTRefreshTokenRepository;
-import projectJM.jotItDown.config.PrincipalDetails;
+import projectJM.jotItDown.security.JWT.JWTUtil;
+import projectJM.jotItDown.security.JWT.refreshToken.JWTRefreshToken;
+import projectJM.jotItDown.security.JWT.refreshToken.JWTRefreshTokenRepository;
+import projectJM.jotItDown.security.PrincipalDetails;
 import projectJM.jotItDown.dto.request.LoginRequestDTO;
 
 import java.io.IOException;

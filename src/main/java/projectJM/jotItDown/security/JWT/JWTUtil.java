@@ -1,4 +1,4 @@
-package projectJM.jotItDown.config.JWT;
+package projectJM.jotItDown.security.JWT;
 
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.security.Keys;

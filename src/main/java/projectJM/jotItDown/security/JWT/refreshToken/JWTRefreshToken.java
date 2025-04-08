@@ -1,4 +1,4 @@
-package projectJM.jotItDown.config.JWT.refreshToken;
+package projectJM.jotItDown.security.JWT.refreshToken;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
